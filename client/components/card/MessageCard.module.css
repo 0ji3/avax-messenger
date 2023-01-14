@@ -1,0 +1,31 @@
+.card {
+    margin: 1rem;
+    padding: 1.5rem;
+    background-color: #4a8bed;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, rgb(1 134 218), rgb(182 49 167));
+    border: 0;
+    color: rgba(var(--text-color));
+  }
+  
+  p.title {
+    font-weight: 600;
+  }
+  
+  p.text {
+    padding: 15px 0 0 0;
+    min-height: 60px;
+  }
+  
+  .date {
+    text-align: right;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+  }
+  
+  .item {
+    margin: 5px;
+  }

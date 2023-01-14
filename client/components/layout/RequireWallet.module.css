@@ -1,0 +1,28 @@
+.wallet {
+    padding: 0 0 10px 0;
+    border-bottom: 2px solid #eaeaea;
+  }
+  
+  .wallet p {
+    margin: 10px 0;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+
+  .button {
+    background: linear-gradient(to right, #30CFD0, #c43ad6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 20px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 18px;
+    padding: 12px 32px;
+    margin: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border-radius: 50px;
+  }

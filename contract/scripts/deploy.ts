@@ -1,23 +1,39 @@
 import { ethers } from "hardhat";
+import { Overrides } from "ethers";
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+async function deploy() {
+  // コントラクトをデプロイするアカウントのアドレスを取得します。
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contract with the account:", deployer.address);
 
-  const lockedAmount = ethers.utils.parseEther("1");
+  const numOfPendingLimits = 10;
+  const funds = 100;
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  // コントラクトのインスタンスを作成します。
+  const Messenger = await ethers.getContractFactory("Messenger");
 
-  await lock.deployed();
+  // The deployed instance of the contract
+  const messenger = await Messenger.deploy(numOfPendingLimits, {
+    value: funds,
+  } as Overrides);
 
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
+  await messenger.deployed();
+
+  console.log("Contract deployed at:", messenger.address);
+  console.log("Contract's owner is:", await messenger.owner());
+  console.log(
+    "Contract's number of pending message limits is:",
+    await messenger.numOfPendingLimits()
+  );
+  console.log(
+    "Contract's fund is:",
+    await messenger.provider.getBalance(messenger.address)
+  );
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+deploy()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
 });
